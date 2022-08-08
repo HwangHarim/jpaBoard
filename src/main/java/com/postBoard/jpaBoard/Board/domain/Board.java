@@ -1,22 +1,28 @@
 package com.postBoard.jpaBoard.Board.domain;
 
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import com.postBoard.jpaBoard.Board.common.BaseTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Board extends BaseTime {
+    @Id
+    @Column(name = "board_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String name;
+    private String nickName;
 
     @Column
     private String title;
@@ -24,19 +30,8 @@ public class Board {
     @Column
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createDateTime;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
-
-    @Builder
-    public Board(Long id, String name, String title, String content){
-        this.id = id;
-        this.name = name;
+    public void update(String title, String content){
         this.title = title;
         this.content = content;
     }
-
-
 }
