@@ -79,4 +79,13 @@ public class BoardController {
       boards
     );
   }
+
+  @GetMapping("/search")
+  public ResponseEntity<ResponseDtoV2<List<Board>>> search(String title) {
+    List<Board> boards = boardService.keywordSearch(title);
+    return responseConverter.toResponseEntity(
+        ResponseMessage.READ_BOARD_SUCCESS,
+        boards
+    );
+  }
 }

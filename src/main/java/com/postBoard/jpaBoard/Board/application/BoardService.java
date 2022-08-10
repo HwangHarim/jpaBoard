@@ -53,4 +53,10 @@ public class BoardService {
   public Page<Board> pageList(Pageable pageable){
     return boardRepository.findAll(pageable);
   }
+
+  /*title searching*/
+  @Transactional
+  public List<Board> keywordSearch(String title){
+    return boardRepository.findByTitleContaining(title);
+  }
 }
