@@ -7,6 +7,8 @@ import com.postBoard.jpaBoard.Board.infrastructure.BoardRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +46,11 @@ public class BoardService {
 
   public void deleteBoard(Long id){
     boardRepository.deleteById(id);
+  }
+
+  /*paging*/
+  @Transactional(readOnly = true)
+  public Page<Board> pageList(Pageable pageable){
+    return boardRepository.findAll(pageable);
   }
 }

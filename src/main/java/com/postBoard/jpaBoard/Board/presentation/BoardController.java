@@ -11,8 +11,11 @@ import com.postBoard.jpaBoard.Board.dto.request.UpdateBoardRequest;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,5 +69,14 @@ public class BoardController {
   public ResponseEntity<ResponseDtoV1> deleteBoard(@PathVariable Long id){
     boardService.deleteBoard(id);
     return responseConverter.toResponseEntity(ResponseMessage.DELETE_BOARD_SUCCESS);
+  }
+
+  @GetMapping
+  public ResponseEntity<ResponseDtoV2<Page<Board>>> index(@PageableDefault(sort="id", direction = Direction.DESC) Pageable pageable){
+    Page<Board> boards = boardService.pageList(pageable);
+    return responseConverter.toResponseEntity(
+      ResponseMessage.READ_ALL_BOARD_SUCCESS,
+      boards
+    );
   }
 }
