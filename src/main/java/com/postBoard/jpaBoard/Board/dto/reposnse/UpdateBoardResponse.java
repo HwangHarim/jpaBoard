@@ -1,4 +1,4 @@
-package com.postBoard.jpaBoard.Board.dto.request;
+package com.postBoard.jpaBoard.Board.dto.reposnse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UpdateBoardRequest {
-  private Long id;
+public class UpdateBoardResponse {
   private String title;
   private String content;
 }

@@ -13,7 +13,7 @@ public class ResponseDto<T> {
     private final String serverDateTime;
 
     public ResponseDtoV1(ResponseMessage message) {
-      this.message = message.getMessage();
+      this.message = message.name();
       this.serverDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
   }
@@ -25,7 +25,7 @@ public class ResponseDto<T> {
     private final T date;
 
     public ResponseDtoV2(ResponseMessage message, T date) {
-      this.message = message.getMessage();
+      this.message = message.name();
       this.serverDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
       this.date = date;
     }

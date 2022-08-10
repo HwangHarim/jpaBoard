@@ -9,6 +9,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class BoardService {
   public Optional<Board> searchBoard(Long id){
     return boardRepository.findById(id);
   }
-
+  @Transactional
   public void createBoard(CreateBoardRequest createBoardRequest) {
     boardRepository.save(Board.builder()
         .nickName(createBoardRequest.getNickName())
@@ -33,6 +34,7 @@ public class BoardService {
     );
   }
 
+  @Transactional
   public void updateBoard(Long id, UpdateBoardRequest updateBoardRequest){
     Board board = boardRepository.findById(id).orElseThrow(()-> {
       throw new NullPointerException();
@@ -43,5 +45,4 @@ public class BoardService {
   public void deleteBoard(Long id){
     boardRepository.deleteById(id);
   }
-
 }
